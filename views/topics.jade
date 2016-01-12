@@ -3,11 +3,12 @@ index:
     .row
       .col-md-4
         view(name="topics")
-      .col-md-7
+      .col-md-8
         view(name="items")
 
 topics:
-  button.btn.btn-success(on-click="add()") Add Topic
+  button.btn.btn-success(on-click="addTopic()") Add Topic
+  hr
 
   ul.list-group
     each topics as #topic
@@ -16,8 +17,24 @@ topics:
 
 
 items:
-  button.btn.btn-success(on-click="add()") Add Item
+  if #root._page.id
+    button.btn.btn-danger(on-click="delTopic()") Del Topic
+    span &sp; {{#root._page.id}}
+    button.btn.btn-success.pull-right(on-click="addItem()") Add Item
+    hr
 
-  ul.list-group
-    each items as #item
-      li.list-group-item {{this.id}}
+    if #root._page.items.length
+      table.table.table-condensed.table-stripped
+        thead
+          tr
+            th.col-md-12 id
+            th: span.glyphicon.glyphicon-trash
+        tbody
+          each #root._page.items as #item, #i
+            tr
+              td {{#item.id}}
+              td: span.glyphicon.glyphicon-remove-circle(on-click="delItem(#item, #i)")
+    else
+      h3 Add item?
+  else
+    h3 Add topic?
