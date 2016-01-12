@@ -1,24 +1,23 @@
 index:
   .container
     .row
-      .col-md-6
+      .col-md-4
         view(name="topics")
-      .col-md-6
+      .col-md-7
         view(name="items")
 
 topics:
   button.btn.btn-success(on-click="add()") Add Topic
-  ul
+
+  ul.list-group
     each topics as #topic
-      li
-        button.btn.btn-danger(on-click="del(#topic.id)") Del
-        | &sp;
-        a(href="/topics/{{#topic.id}}") {{#topic.id}}
+      a.list-group-item(class="{{if #root._page.id === this.id}}active{{/}}", href="/topics/{{this.id}}") {{this.id}}
+        span.badge {{this.ids.length}}
+
 
 items:
   button.btn.btn-success(on-click="add()") Add Item
-  ul
-    each items as #item, #i
-      li
-        button.btn.btn-danger(on-click="del(#i, #item.id)") Del
-        | &sp; {{#item.id}}
+
+  ul.list-group
+    each items as #item
+      li.list-group-item {{this.id}}
