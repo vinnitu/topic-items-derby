@@ -1,0 +1,24 @@
+index:
+  .container
+    .row
+      .col-md-6
+        view(name="topics")
+      .col-md-6
+        view(name="items")
+
+topics:
+  button.btn.btn-success(on-click="add()") Add Topic
+  ul
+    each topics as #topic
+      li
+        button.btn.btn-danger(on-click="del(#topic.id)") Del
+        | &sp;
+        a(href="/topics/{{#topic.id}}") {{#topic.id}}
+
+items:
+  button.btn.btn-success(on-click="add()") Add Item
+  ul
+    each items as #item, #i
+      li
+        button.btn.btn-danger(on-click="del(#i, #item.id)") Del
+        | &sp; {{#item.id}}
