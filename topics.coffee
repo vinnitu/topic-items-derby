@@ -35,3 +35,9 @@ app.component "topics", class Topics
     @model.scope("topics.#{@id}.ids").remove i, (error) =>
       @model.scope("items.#{id}").fetch =>
         @model.scope("items").del id, (error) =>
+
+  upItem: (i) ->
+    @model.scope("topics.#{@id}.ids").move i, i-1 if i
+
+  downItem: (i) ->
+    @model.scope("topics.#{@id}.ids").move i, i+1

@@ -28,11 +28,15 @@ items:
         thead
           tr
             th.col-md-12 id
+            th
+            th
             th: span.glyphicon.glyphicon-trash
         tbody
           each #root._page.items as #item, #i
             tr
               td {{#item.id}}
+              td: span.glyphicon.glyphicon-arrow-up(on-click="upItem(#i)")
+              td: span.glyphicon.glyphicon-arrow-down(on-click="downItem(#i)")
               td: span.glyphicon.glyphicon-remove-circle(on-click="delItem(#item, #i)")
     else
       h3 Add item?
