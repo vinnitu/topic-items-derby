@@ -12,15 +12,20 @@ topics:
 
   ul.list-group
     each topics as #topic
-      a.list-group-item(class="{{if #root._page.id === this.id}}active{{/}}", href="/topics/{{this.id}}") {{this.id}}
-        span.badge {{this.ids.length}}
+      a.list-group-item(class="{{if #root._page.id === #topic.id}}active{{/}}", href="/topics/{{#topic.id}}") {{#topic.name || #topic.id}}
+        span.badge {{#topic.ids.length}}
 
 
 items:
   if #root._page.id
-    button.btn.btn-danger(on-click="delTopic()") Del Topic
-    span &sp; {{#root._page.id}}
-    button.btn.btn-success.pull-right(on-click="addItem()") Add Item
+
+    form.form-inline
+      button.btn.btn-danger(on-click="delTopic()") Del Topic
+      | &sp;
+      .form-group
+        input.form-control(placeholder="user friendly title", value="{{#root._page.topic.name}}")
+      button.btn.btn-success.pull-right(on-click="addItem()") Add Item
+
     hr
 
     if #root._page.items.length

@@ -6,11 +6,13 @@ app.get "/topics/:id?", (page, model, {id}, next) ->
 
     model.set "_page.id", id
 
-    ids = "topics.#{id}.ids"
-    items = model.query "items", ids
-    model.subscribe items, ->
-      model.refList "_page.items", "items", ids
-      page.render "topics"
+    topic = model.at("topics.#{id}").subscribe ->
+      model.ref "_page.topic", topic
+
+      ids = "topics.#{id}.ids"
+      model.query("items", ids).subscribe ->
+        model.refList "_page.items", "items", ids
+        page.render "topics"
 
 
 app.component "topics", class Topics
